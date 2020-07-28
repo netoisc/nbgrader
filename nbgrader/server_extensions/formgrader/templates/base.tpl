@@ -41,7 +41,7 @@
       </div>
       <div class="col-md-2">
         <div class="pull-right jupyter-logo">
-            <svg width="440" height="440" viewBox="0 0 440 440" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="110" height="110" viewBox="0 0 440 440" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="440" height="440" fill="white"/>
               <mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="67" y="12" width="294" height="416">
               <path d="M67 12H360.333V427.001H67V12Z" fill="white"/>
