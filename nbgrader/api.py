@@ -87,6 +87,10 @@ class Assignment(Base):
     #: each notebook
     max_written_score = None
 
+    #: The LMS Resource link ID, this is mainly for identifying or associating the resource in LMS system with an assignment in nbgrader
+    #: with this the the grades casn be sent to LMS automatically
+    lms_resource_link_id = Column(String(128), nullable=True)
+
     def __init__(self, name, duedate=None, course_id="default_course", **kwargs):
         self.name = name
         self.duedate = duedate
@@ -106,6 +110,7 @@ class Assignment(Base):
             "max_code_score": self.max_code_score,
             "max_written_score": self.max_written_score,
             "max_task_score": self.max_written_score,
+            "lms_resource_link_id": self.lms_resource_link_id
         }
 
     def __repr__(self):
