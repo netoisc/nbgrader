@@ -1572,6 +1572,7 @@ class Gradebook(object):
             kwargs['duedate'] = utils.parse_utc(kwargs['duedate'])
         if 'course_id' not in kwargs:
             kwargs['course_id'] = self.course_id
+        print('add_assignment kwargs:', kwargs)
         assignment = Assignment(name=name, **kwargs)
         self.db.add(assignment)
         try:
