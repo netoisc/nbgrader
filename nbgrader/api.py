@@ -96,6 +96,8 @@ class Assignment(Base):
         self.name = name
         self.duedate = duedate
         self.course_id = course_id
+        for attr in kwargs:
+            setattr(self, attr, kwargs[attr])
 
     def to_dict(self):
         """Convert the assignment object to a JSON-friendly dictionary
