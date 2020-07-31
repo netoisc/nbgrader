@@ -985,6 +985,9 @@ class Course(Base):
 
     id = Column(String(128), unique=True, primary_key=True, nullable=False)
     assignments = relationship("Assignment", back_populates="course")
+    # When the course was registered with lti13 this column should contain the value in 'lineitems' in
+    # 'https://purl.imsglobal.org/spec/lti-ags/claim/endpoint'
+    lms_lineitems_endpoint = Column(String(128), nullable=True)    
 
     def __repr__(self):
         return "Course<{}>".format(self.id)
@@ -1411,6 +1414,40 @@ class Gradebook(object):
         except (IntegrityError, FlushError) as e:
             self.db.rollback()
             raise InvalidEntry(*e.args)
+        return course
+
+    def update_course(self, course_id: str, **kwargs) -> Course:
+        """Update a course.
+
+        Parameters
+        ----------
+        course_id:
+            The unique id of the course
+
+        `**kwargs` : dict
+            other keyword arguments to the :class:`~nbgrader.api.Course` object
+
+        Returns
+        -------
+        course : :class:`~nbgrader.api.Course`
+
+        """
+
+        try:
+            course = self.db.query(Course)\
+                .filter(Course.id == course_id)\
+                .one()
+        except NoResultFound:
+            raise MissingEntry("No such course: {}".format(course_id))
+        else:
+            for attr in kwargs:
+                setattr(course, attr, kwargs[attr])
+            try:
+                self.db.commit()
+            except (IntegrityError, FlushError) as e:
+                self.db.rollback()
+                raise InvalidEntry(*e.args)
+
         return course
 
     #### Students
