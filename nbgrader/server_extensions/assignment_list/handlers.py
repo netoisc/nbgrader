@@ -4,6 +4,7 @@ import os
 import json
 import contextlib
 import traceback
+import requests
 
 from tornado import web
 from textwrap import dedent
@@ -298,6 +299,15 @@ class AssignmentActionHandler(BaseAssignmentHandler):
             course_id = self.get_argument('course_id')
             output = self.manager.submit_assignment(course_id, assignment_id)
             if output['success']:
+                self.log.info('Trying to invoke the setup-course to autograde')
+                url = f'http://setup-course:8000/auto-grade/{course_id}/{assignment_id}'
+                req = requests.request(
+                    url=url,
+                    method='POST',                    
+                )
+                if not req.ok:
+                    self.log.error('An error occurred by invoking the setup-course to make an autograding...')                
+                
                 self.finish(json.dumps(self.manager.list_assignments(course_id=course_id)))
             else:
                 self.finish(json.dumps(output))
