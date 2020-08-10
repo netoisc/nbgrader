@@ -11,7 +11,7 @@
   "dependencies": {
     "@bower_components/autosize": "git://github.com/jackmoore/autosize.git#4.0.2",
     "@bower_components/backbone": "git://github.com/components/backbone.git#1.2.0",
-    "@bower_components/bootstrap": "git://github.com/components/bootstrap.git#3.3",
+    "@bower_components/bootstrap": "git://github.com/components/bootstrap.git#3.3.5",
     "@bower_components/datatables.net": "DataTables/Dist-DataTables#1.10.21",
     "@bower_components/datatables.net-bs": "DataTables/Dist-DataTables-Bootstrap#1.10.21",
     "@bower_components/jquery": "git://github.com/components/jquery.git#3.4.1",
