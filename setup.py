@@ -6,15 +6,6 @@
 
 import os
 from setuptools import setup, find_packages
-from subprocess import call
-from setuptools.command.install import install
-
-
-class CustomInstall(install):
-    def run(self):
-        call(["npm install"], shell=True)
-        install.run(self)
-
 
 # get paths to all the extension files
 extension_files = []
@@ -67,9 +58,6 @@ with open(os.path.join(here, name, '_version.py')) as f:
 
 setup_args = dict(
     name=name,
-    cmdclass={
-        'install': CustomInstall
-    },
     version=version_ns['__version__'],
     description='A system for assigning and grading notebooks',
     author='Jupyter Development Team',
