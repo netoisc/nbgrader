@@ -9,7 +9,10 @@ from . import NbGraderPreprocessor
 from ..nbgraderformat import read as read_nb
 from nbconvert.exporters.exporter import ResourcesDict
 from nbformat.notebooknode import NotebookNode
+
+from pathlib import Path
 from typing import Tuple
+
 
 
 class IncludeHeaderFooter(NbGraderPreprocessor):
@@ -26,7 +29,7 @@ class IncludeHeaderFooter(NbGraderPreprocessor):
         new_cells = []
 
         # header
-        if self.header:
+        if self.header and Path(self.header).exists():
             with io.open(self.header, encoding='utf-8') as fh:
                 header_nb = read_nb(fh, as_version=current_nbformat)
             new_cells.extend(header_nb.cells)
@@ -35,7 +38,7 @@ class IncludeHeaderFooter(NbGraderPreprocessor):
         new_cells.extend(nb.cells)
 
         # footer
-        if self.footer:
+        if self.footer and Path(self.footer).exists():
             with io.open(self.footer, encoding='utf-8') as fh:
                 footer_nb = read_nb(fh, as_version=current_nbformat)
             new_cells.extend(footer_nb.cells)
